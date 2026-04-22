@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 .env
 data/raw/
-data/processed/*.pkl
+*.pkl
 *.log
 .pytest_cache/
 .coverage
