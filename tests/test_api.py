@@ -1,6 +1,7 @@
 import pytest
 import pickle
 import pandas as pd
+import numpy as np
 from fastapi.testclient import TestClient
 from unittest.mock import patch, MagicMock
 from src.api import app
