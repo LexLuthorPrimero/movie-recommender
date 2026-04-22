@@ -11,7 +11,7 @@ movie_titles = movies_df.set_index('movieId')['title'].to_dict()
 movie_id = st.selectbox("Selecciona una película", options=list(movie_titles.keys()), format_func=lambda x: movie_titles[x])
 top_k = st.slider("Número de recomendaciones", 1, 10, 5)
 
-API_URL = "http://localhost:8000/recommend"
+API_URL = st.secrets.get("API_URL", "http://localhost:8000/recommend")
 
 if st.button("Recomendar"):
     try:
