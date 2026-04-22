@@ -1,17 +1,23 @@
 import streamlit as st
 import requests
 import pandas as pd
+import os
 
 st.set_page_config(page_title="Movie Recommender", layout="centered")
 st.title("🎬 Recomendador de Películas")
 
+# Cargar lista de películas localmente
 movies_df = pd.read_csv("data/processed/movies_with_embeddings.csv")
 movie_titles = movies_df.set_index('movieId')['title'].to_dict()
 
 movie_id = st.selectbox("Selecciona una película", options=list(movie_titles.keys()), format_func=lambda x: movie_titles[x])
 top_k = st.slider("Número de recomendaciones", 1, 10, 5)
 
-API_URL = st.secrets.get("API_URL", "http://localhost:8000/recommend")
+# Obtener URL de la API desde secrets o variable de entorno
+try:
+    API_URL = st.secrets.get("API_URL", os.getenv("API_URL", "http://localhost:8000/recommend"))
+except Exception:
+    API_URL = os.getenv("API_URL", "http://localhost:8000/recommend")
 
 if st.button("Recomendar"):
     try:
